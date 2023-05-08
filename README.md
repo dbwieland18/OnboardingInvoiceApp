@@ -20,7 +20,7 @@ Application demo designed to show how ASP.NET Core and PostgreSQL can be run in 
 
     - Run `docker-compose up`
 
-1. Navigate to http://localhost:5000 in your browser to view the site.
+1. Navigate to http://localhost:8080 in your browser to view the site.
 
 ## Using the Web App for Container Services on Azure
 

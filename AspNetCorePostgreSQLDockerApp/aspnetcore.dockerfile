@@ -2,13 +2,13 @@ FROM mcr.microsoft.com/dotnet/core/sdk
 
 LABEL author="Dan Wahlin"
 
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:8080
 
 WORKDIR /var/www/aspnetcoreapp
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8080
 
 ENTRYPOINT ["/bin/bash", "-c", "dotnet restore && dotnet run"]
 
@@ -21,4 +21,4 @@ ENTRYPOINT ["/bin/bash", "-c", "dotnet restore && dotnet run"]
 
 # docker build -f aspnetcore.dockerfile -t danwahlin/aspnetcore .
 # docker run -d --name my-postgres -e POSTGRES_PASSWORD=password postgres
-# docker run -d -p 5000:5000 --link my-postgres:postgres danwahlin/aspnetcore
+# docker run -d -p 8080:8080 --link my-postgres:postgres danwahlin/aspnetcore

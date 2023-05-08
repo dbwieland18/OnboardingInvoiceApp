@@ -10,7 +10,7 @@ COPY ./ ./
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:8080
 WORKDIR /var/www/aspnetcoreapp
 COPY --from=build /var/www/aspnetcoreapp/out ./
 ENTRYPOINT ["dotnet", "AspNetCorePostgreSQLDockerApp.dll"]
