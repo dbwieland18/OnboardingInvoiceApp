@@ -32,19 +32,19 @@ namespace AspNetCorePostgreSQLDockerApp
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<DockerCommandsDbContext>(options =>
                     options.UseNpgsql(Configuration["Data:DbContext:DockerCommandsConnectionString"]))
-                .AddDbContext<CustomersDbContext>(options =>
-                    options.UseNpgsql(Configuration["Data:DbContext:CustomersConnectionString"]));
+                .AddDbContext<InvoicesDbContext>(options =>
+                    options.UseNpgsql(Configuration["Data:DbContext:InvoiceConnectionString"]));
 
 
             services.AddControllersWithViews();
 
             // Add our PostgreSQL Repositories (scoped to each request)
             services.AddScoped<IDockerCommandsRepository, DockerCommandsRepository>();
-            services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<IInvoicesRepository, InvoicesRepository>();
             
             //Transient: Created each time they're needed
             services.AddTransient<DockerCommandsDbSeeder>();
-            services.AddTransient<CustomersDbSeeder>();
+            services.AddTransient<InvoicesDbSeeder>();
 
             services.AddSwaggerGen(options =>
             {
@@ -81,7 +81,7 @@ namespace AspNetCorePostgreSQLDockerApp
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-                              DockerCommandsDbSeeder dockerCommandsDbSeeder, CustomersDbSeeder customersDbSeeder)
+                              DockerCommandsDbSeeder dockerCommandsDbSeeder, InvoicesDbSeeder invoicesDbSeeder)
         {
             if (env.IsDevelopment())
             {
@@ -117,11 +117,11 @@ namespace AspNetCorePostgreSQLDockerApp
                     name: "default",
                     pattern: "{controller}/{action}/{id?}");
 
-                // Handle redirecting client-side routes to Customers/Index route
-                endpoints.MapFallbackToController("Index", "Customers");
+                // Handle redirecting client-side routes to Invoices/Index route
+                endpoints.MapFallbackToController("Index", "Invoices");
             });
 
-            customersDbSeeder.SeedAsync(app.ApplicationServices).Wait();
+            invoicesDbSeeder.SeedAsync(app.ApplicationServices).Wait();
             dockerCommandsDbSeeder.SeedAsync(app.ApplicationServices).Wait();
 
         }

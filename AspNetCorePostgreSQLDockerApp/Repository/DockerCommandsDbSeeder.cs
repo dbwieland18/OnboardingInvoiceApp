@@ -24,7 +24,7 @@ namespace AspNetCorePostgreSQLDockerApp.Repository
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var dockerDb = serviceScope.ServiceProvider.GetService<DockerCommandsDbContext>();
-                var customersDb = serviceScope.ServiceProvider.GetService<CustomersDbContext>();
+                var invoicesDb = serviceScope.ServiceProvider.GetService<InvoicesDbContext>();
 
                 if (await dockerDb.Database.EnsureCreatedAsync())
                 {

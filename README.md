@@ -1,6 +1,6 @@
 # ASP.NET Core with PostgreSQL and Docker Demo
 
-Application demo designed to show how ASP.NET Core and PostgreSQL can be run in Docker containers. The app uses Entity Framework to create a simple database that stores Docker commands and examples. It also shows how Angular can be integrated with Web API to display customer information.
+Application demo designed to show how ASP.NET Core and PostgreSQL can be run in Docker containers. The app uses Entity Framework to create a simple database that stores Docker commands and examples. It also shows how Angular can be integrated with Web API to display invoice information.
 
 ### Running the App with Docker Compose
 

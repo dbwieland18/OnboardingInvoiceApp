@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCorePostgreSQLDockerApp.Controllers
 {
-    public class CustomersController : Controller
+    public class InvoicesController : Controller
     {
 
         public ActionResult Index()
