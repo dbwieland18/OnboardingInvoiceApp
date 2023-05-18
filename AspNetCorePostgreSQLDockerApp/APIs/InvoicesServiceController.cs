@@ -24,6 +24,8 @@ namespace AspNetCorePostgreSQLDockerApp.Apis
         [ProducesResponseType(typeof(List<Invoice>), 404)]
         public async Task<ActionResult> Invoices()
         {
+            AspNetCorePostgreSQLDockerApp.Producer.Producer.Start();
+            
             var invoices = await _repo.GetInvoicesAsync();
             if (invoices == null) {
               return NotFound();

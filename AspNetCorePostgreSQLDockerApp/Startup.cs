@@ -12,6 +12,9 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.OpenApi.Models;
 using AspNetCorePostgreSQLDockerApp.Repository;
+using AspNetCorePostgreSQLDockerApp.Producer;
+using AspNetCorePostgreSQLDockerApp.Consumer;
+using System.Threading;
 
 namespace AspNetCorePostgreSQLDockerApp
 {
@@ -41,7 +44,8 @@ namespace AspNetCorePostgreSQLDockerApp
             // Add our PostgreSQL Repositories (scoped to each request)
             services.AddScoped<IDockerCommandsRepository, DockerCommandsRepository>();
             services.AddScoped<IInvoicesRepository, InvoicesRepository>();
-            
+
+
             //Transient: Created each time they're needed
             services.AddTransient<DockerCommandsDbSeeder>();
             services.AddTransient<InvoicesDbSeeder>();
@@ -75,7 +79,7 @@ namespace AspNetCorePostgreSQLDockerApp
                 configuration.RootPath = "dist";
             });
 
-            // services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddRouting(options => options.LowercaseUrls = true);
 
         }
 
@@ -124,6 +128,10 @@ namespace AspNetCorePostgreSQLDockerApp
             invoicesDbSeeder.SeedAsync(app.ApplicationServices).Wait();
             dockerCommandsDbSeeder.SeedAsync(app.ApplicationServices).Wait();
 
+            AspNetCorePostgreSQLDockerApp.Producer.Producer.Start();
+
+            Thread consumerThread = new Thread(AspNetCorePostgreSQLDockerApp.Consumer.Consumer.Start);
+            consumerThread.Start();
         }
 
     }
